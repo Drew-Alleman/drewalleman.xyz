@@ -12,3 +12,6 @@ frontend:
     baseDirectory: _site
     files:
       - '**/*'
+  cache:
+    paths:
+      - .bundle
