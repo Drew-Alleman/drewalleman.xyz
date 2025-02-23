@@ -4,7 +4,9 @@ frontend:
     preBuild:
       commands:
         - gem install bundler
-        - bundle install
+        - bundle update --bundler
+        - rm -rf vendor/bundle
+        - bundle install --no-cache --clean
     build:
       commands:
         - jekyll build
@@ -13,5 +15,4 @@ frontend:
     files:
       - '**/*'
   cache:
-    paths:
-      - .bundle
+    paths: []
