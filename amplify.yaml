@@ -3,15 +3,18 @@ frontend:
   phases:
     preBuild:
       commands:
-        - gem install bundler
-        - bundle update --bundler
-        - bundle install --no-cache --clean
+        - export LC_ALL="C.UTF-8"
+        - export LANG="en_US.UTF-8"
+        - export LANGUAGE="en_US.UTF-8"
+        - rvm install 3.3.4
+        - rvm use 3.3.4
+        - bundle install
     build:
       commands:
-        - jekyll build
+        - JEKYLL_ENV=production bundle exec jekyll build
   artifacts:
     baseDirectory: _site
     files:
-      - '**/*'
+      - "**/*"
   cache:
     paths: []
