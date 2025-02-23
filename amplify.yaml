@@ -5,13 +5,7 @@ frontend:
       commands:
         - gem install bundler
         - bundle update --bundler
-        - rm -rf vendor/bundle
-        - echo "### Before bundle install: Checking installed gems"
-        - gem list
-        - gem install jekyll -v 4.4.1
         - bundle install --no-cache --clean
-        - echo "### After bundle install: Checking installed gems"
-        - gem list | grep jekyll
     build:
       commands:
         - jekyll build
