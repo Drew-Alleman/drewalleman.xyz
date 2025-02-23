@@ -1,18 +1,20 @@
 version: 1
-env:
-  variables:
-    JEKYLL_ENV: production
 frontend:
   phases:
     preBuild:
       commands:
-        - eval "$(/root/.rbenv/bin/rbenv init - bash)"
-        - rbenv global 2.7.1
         - gem install bundler
-        - bundle install
+        - bundle update --bundler
+        - rm -rf vendor/bundle
+        - echo "### Before bundle install: Checking installed gems"
+        - gem list
+        - gem install jekyll -v 4.4.1
+        - bundle install --no-cache --clean
+        - echo "### After bundle install: Checking installed gems"
+        - gem list | grep jekyll
     build:
       commands:
-        - bundle exec jekyll build
+        - jekyll build
   artifacts:
     baseDirectory: _site
     files:
