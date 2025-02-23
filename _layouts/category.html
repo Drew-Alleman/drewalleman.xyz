@@ -1,0 +1,33 @@
+---
+layout: default
+extra_css: /assets/css/category.css
+---
+<div class="category-container">
+  <h1 class="category-title">Posts in "{{ page.category }}" Category</h1>
+
+  <div class="posts-grid">
+    {% for post in site.categories[page.category] %}
+      <article class="post-card">
+        {% if post.image %}
+          <div class="post-image">
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+          </div>
+        {% endif %}
+        <div class="post-content">
+          <h2 class="post-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h2>
+          <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>
+          <div class="post-excerpt">
+            {{ post.excerpt | strip_html | truncate: 280 }}
+          </div>
+          <div class="post-categories">
+            {% for category in post.categories %}
+              <a href="{{ site.baseurl }}/category/{{ category | downcase }}/" class="category-tag">{{ category }}</a>
+            {% endfor %}
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</div>

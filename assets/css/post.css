@@ -1,0 +1,134 @@
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #1f2335;
+    border-radius: 0;  
+    border: 1px solid #414868;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    min-height: 100vh;  
+  }
+  
+  .container p,
+  .container ul,
+  .container ol {
+    color: #a9b1d6;
+    line-height: 1.6;
+  }
+  
+  .container h1,
+  .container h2,
+  .container h3,
+  .container h4 {
+    color: #7aa2f7;
+    border-bottom: 2px solid #bb9af7;
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+  }
+  
+  .container a {
+    color: #7dcfff;
+    text-decoration: none;
+  }
+  
+  .container a:hover {
+    color: #7aa2f7;
+  }
+  
+  .container pre {
+    background-color: #24283b;
+    padding: 1.25rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    border: 1px solid #414868;
+    margin: 1.5rem 0;
+  }
+  
+  .container code {
+    font-family: 'JetBrains Mono', monospace;
+    color: #a9b1d6;
+  }
+  
+  .container img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .post-image {
+    width: 75%;
+    margin: 2rem auto;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .post-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .container > * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .container ul,
+  .container ol {
+    padding-left: 2rem;
+    margin: 1rem 0;
+  }
+  
+  .container li {
+    margin: 0.5rem 0;
+  }
+  
+  .language-bash,
+  .language-shell {
+    background-color: #1a1b26 !important;
+    color: #a9b1d6 !important;
+    border: 1px solid #414868 !important;
+  }
+
+.highlight {
+    background: var(--bg-medium);
+    color: var(--text-bright);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1rem 0;
+  }
+  
+  /* Syntax Colors */
+  .highlight .n, .highlight .nx, .highlight .p {
+    color: var(--text-bright);
+  }
+  .highlight .k, .highlight .kd, .highlight .kn, .highlight .kr, .highlight .kt {
+    color: var(--magenta);
+  }
+  .highlight .nf, .highlight .nc, .highlight .nd {
+    color: var(--cyan);
+  }
+  .highlight .s, .highlight .s1, .highlight .s2 {
+    color: var(--green);
+  }
+  .highlight .m, .highlight .mi, .highlight .mf {
+    color: var(--orange);
+  }
+  .highlight .c, .highlight .c1, .highlight .cm {
+    color: var(--text-muted);
+  }
+  .highlight .o, .highlight .ow {
+    color: var(--red);
+  }
+  .highlight .sr {
+    color: var(--blue);
+  }
+  .highlight .se {
+    color: var(--orange);
+  }
+  .highlight .si {
+    color: var(--magenta);
+  }
+  
