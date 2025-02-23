@@ -41,7 +41,7 @@ When you press submit it downloads a JSON file with the ticket information.
 
 We can inspect this exchange using the browser’s Developer Tools under the Network tab. If we inspect the request downloading the ticket information we can see its downloading the file by passing the filename to the download endpoint. 
 
-![[/%% static %%/images/htb-titanic-booking-header.png]]
+![Firefox-Dev-Tools](/assets/images/htb-titanic-booking-header.png)
 ### Directory Traversal
 Here we can attempt directory traversal to attempt to download a local file. a classic file to test is `/etc/passwd`. We utilize the `../` characters to signify we want to go back a directory. You could hypothetically pass as many `../` as you want since you can only go to the root directory,  in addition you could attempt to bypass weak WAF by URL encoding `../`
 
