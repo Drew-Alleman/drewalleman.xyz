@@ -8,9 +8,6 @@ author: Drew Alleman
 # SEO settings
 lang: en
 logo: /assets/images/logo.png
-twitter:
-  username: your_twitter_handle
-  card: summary_large_image
 
 # Open Graph
 og_image: /assets/images/og-default.jpg
@@ -20,3 +17,7 @@ social:
     - https://github.com/Drew-Alleman
     - https://www.youtube.com/@drewalleman
     - https://www.linkedin.com/in/drew-alleman-909352209
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
