@@ -74,7 +74,7 @@ developer:x:1000:1000:developer:/home/developer:/bin/bash
 root:x:0:0:root:/root:/bin/bash
 ```
 
-I attempted to find more local files that could possibly give me additional information about the hostusing `gobuster` but unfortunately I came up empty handed. 
+I attempted to find more local files that could possibly give me additional information about the host using `gobuster` but unfortunately I came up empty handed. 
 
 ```
 drew@windows:~/tmp$ gobuster -w lfi-linux-list.txt -u "http://titanic.htb/download?ticket="
