@@ -33,7 +33,7 @@ title: About
         </section>
         <section class="content-section">
             <h2 class="section-title">About Me</h2>
-            <p>Hi, I'm Drew. I have a passion for creating and breaking software—constantly learning and experimenting with new technologies. I got into computers as a kid by hacking my single player video games, soon I realized not only could I hack software on real computers, but I could also build it. I believe in open-source software and sharing knowledge. Most of my tools and projects are publicly available on GitHub. Currently, I focus on software development and cybersecurity, with particular interests in reverse engineering, penetration testing, and building security tools.</p>
+            <p>Hi, I'm Drew. I have a passion for both creating and breaking software—constantly learning and experimenting with new technologies. I first got into computers as a kid by hacking single-player video games. Over time, I realized that I could not only hack video games but also hack computers and build tools to help others. I strongly believe in open-source software and the importance of sharing knowledge. Most of my tools and projects are publicly available on GitHub. Currently, I am working on getting my eJPT.</p>
         </section>
         <section class="content-section">
             <h2 class="section-title">Technical Skills</h2>
