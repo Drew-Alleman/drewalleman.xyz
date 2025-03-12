@@ -175,7 +175,7 @@ From the output we can see the `dev` subdomain was resolved. If we go to `http:/
 ![Gitea-Website](/assets/images/htb-titanic-gittea-preview.png)
 Here we can see the developer user has a couple of public repositories. The first repository was the website with the directory traversal vulnerability and did not contain any additional information to help us.
 
-![Gitea-Flask-App](htb-titanic-gitea-flask-app.png)
+![Gitea-Flask-App](/assets/htb-titanic-gitea-flask-app.png)
 
 The other repository held information containing the developers docker containers. One file for Gitea and the other for MySQL. The Gitea docker file exposed the directory Gitea is hosted. 
 
