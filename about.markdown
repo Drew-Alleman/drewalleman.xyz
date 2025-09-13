@@ -33,7 +33,7 @@ title: About
         </section>
         <section class="content-section">
             <h2 class="section-title">About Me</h2>
-            <p>Hi, I'm Drew. I have a passion for both creating and breaking software—constantly learning and experimenting with new technologies. I first got into computers as a kid by hacking single-player video games. Over time, I realized that I could not only hack video games but also hack computers and build tools to help others. I strongly believe in open-source software and the importance of sharing knowledge. Most of my tools and projects are publicly available on GitHub. Currently, I am working on getting my eJPT.</p>
+            <p>Hi, I’m Drew. I’m passionate about both creating and breaking software, always exploring new technologies and pushing my skills further. I believe strongly in open-source and the value of sharing knowledge with the community. Most of my tools and projects are freely available on GitHub for others to use, learn from, and build upon.</p>
         </section>
         <section class="content-section">
             <h2 class="section-title">Technical Skills</h2>
@@ -43,13 +43,18 @@ title: About
                 <div class="skill-item">Malware Analysis</div>
                 <div class="skill-item">Network Security</div>
                 <div class="skill-item">Python</div>
-                <div class="skill-item">C++, C#</div>
+                <div class="skill-item">Powershell</div>
+                <div class="skill-item">C++ and C#</div>
             </div>
         </section>
 
         <section class="content-section">
             <h2 class="section-title">Certifications & Achievements</h2>
             <ul class="certification-list">
+                <li class="certification-item">
+                    <strong>Offsec OSCP+</strong>
+                    <div class="text-sm text-gray-400">2025</div>
+                </li>
                 <li class="certification-item">
                     <strong>PenTest+ PT0-002</strong> - CompTIA
                     <div class="text-sm text-gray-400">2023</div>
