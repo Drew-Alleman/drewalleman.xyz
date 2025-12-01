@@ -6,6 +6,8 @@ date: 2025-11-30 15:30:00 -0700
 categories:
   - hacking
   - malware-development
+  - coding
+  - c++
 tags:
   - cpp
   - hacking
