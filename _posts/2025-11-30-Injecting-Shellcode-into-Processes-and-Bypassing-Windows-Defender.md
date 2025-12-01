@@ -2,7 +2,7 @@
 layout: post
 title: Injecting Shellcode into Processes and Bypassing Windows Defender
 description: A blogpost showcasing code to inject obfuscated shellcode into a windows process and techniques to avoid windows defender
-date: 2025-11-30 22:38:22 -0700
+date: 2025-11-30 17:30:00 -0700
 categories:
   - hacking
   - malware-development
@@ -12,7 +12,7 @@ tags:
 image: /assets/images/process_injection.png
 image_alt: A blogpost showcasing code to inject obfuscated shellcode into a windows process and techniques to avoid windows defender
 author: Drew Alleman
-last_modified_at: 2025-11-30 22:38:22 -0700
+last_modified_at: 2025-11-30 17:30:00 -0700
 ---
 
 # Quicklinks
