@@ -34,7 +34,7 @@ last_modified_at: 2025-02-30 22:38:22 -0700
   - [With Shellcode Obfuscation](#with-shellcode-obfuscation)
   - [With Sleep Statements](#with-sleep-statements)
   - [Using the Strip Utility](#using-the-strip-utility)
-  
+
 # Intro
 I wanted to sharpen my c++ development skills and deepen my understanding of offensive tooling used in red-team operations. To do that, I began developing a project focused on injecting shellcode into a running process while evading Windows Defender, purely for research and authorized security testing. In this blog post, I’ll walk through the techniques I used and challenges I encountered along with the c++ code.
 # Goals
@@ -168,11 +168,10 @@ LPVOID VirtualAllocEx(
 
 `hProcess` is the handle found from `getHandleFromPid`. `lpAddress` is null because we don't care where the OS reserves the address. `dwSize` is the size of our shellcode. `flAllocationType` is the type of memory allocation
 
-| Value                             | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **MEM_COMMIT**<br><br>0x00001000  | Allocates memory charges (from the overall size of memory and the paging files on disk)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| **MEM_RESERVE**<br><br>0x00002000 | Reserves a range of the process's virtual address space without allocating any actual physical storage in memory or in the paging file on disk.<br><br>You commit reserved pages by calling **VirtualAllocEx** again with **MEM_COMMIT**. To reserve and commit pages in one step, call **VirtualAllocEx** with `MEM_COMMIT \| MEM_RESERVE`.<br><br>Other memory allocation functions, such as **malloc** and [LocalAlloc](https://learn.microsoft.com/en-us/windows/desktop/api/winbase/nf-winbase-localalloc), cannot use reserved memory until it has been released. |
-and finally `flProtect` is the memory protection for the region. When allocating dynamic memory for an enclave, the `flProtec`t parameter must be `PAGE_READWRITE` or `PAGE_EXECUTE_READWRITE`.
+| Value            | Meaning |
+|------------------|---------|
+| **MEM_COMMIT**<br><code>0x00001000</code> | Allocates memory charges (from the overall size of memory and the paging files on disk). |
+| **MEM_RESERVE**<br><code>0x00002000</code> | Reserves a range of the process's virtual address space without allocating physical memory. You can commit the reserved pages later using **VirtualAllocEx** with `MEM_COMMIT`, or reserve+commit at once with `MEM_COMMIT | MEM_RESERVE`. Other allocation methods such as `malloc` or `LocalAlloc` cannot use reserved pages until they are committed. |
 
 ```c++
 // allocate RWX memory in target
