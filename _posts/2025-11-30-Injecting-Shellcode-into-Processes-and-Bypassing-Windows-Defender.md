@@ -16,10 +16,13 @@ image_alt: A blogpost showcasing code to inject obfuscated shellcode into a wind
 author: Drew Alleman
 last_modified_at: 2025-11-30 15:30:00 -0700
 ---
+# Intro
+I wanted to sharpen my c++ development skills and deepen my understanding of offensive tooling used in red-team operations. To do that, I began developing a project focused on injecting shellcode into a running process while evading Windows Defender, purely for research and authorized security testing. In this blog post, I’ll walk through the techniques I used and challenges I encountered along with the c++ code.
+
+# Goals
+The goal of this project is to develop a shellcode-injection technique capable of launching `calc.exe` within a target process, even with Windows Defender and real-time protection fully enabled. This work is conducted strictly for research and authorized red-team use, focusing on understanding and evaluating modern defensive detection capabilities.
 
 # Quicklinks
-- [Intro](#intro)
-- [Goals](#goals)
 - [Generating the Shellcode](#generating-the-shellcode)
   - [Obfuscating the Shellcode](#obfuscating-the-shellcode)
 - [Creating the Code to Inject the Obfuscated Shellcode](#creating-the-code-to-inject-the-obfuscated-shellcode)
@@ -37,10 +40,6 @@ last_modified_at: 2025-11-30 15:30:00 -0700
   - [With Sleep Statements](#with-sleep-statements)
   - [Using the Strip Utility](#using-the-strip-utility)
 
-# Intro
-I wanted to sharpen my c++ development skills and deepen my understanding of offensive tooling used in red-team operations. To do that, I began developing a project focused on injecting shellcode into a running process while evading Windows Defender, purely for research and authorized security testing. In this blog post, I’ll walk through the techniques I used and challenges I encountered along with the c++ code.
-# Goals
-The goal of this project is to develop a shellcode-injection technique capable of launching `calc.exe` within a target process, even with Windows Defender and real-time protection fully enabled. This work is conducted strictly for research and authorized red-team use, focusing on understanding and evaluating modern defensive detection capabilities.
 # Generating the Shellcode
 To generate a payload, I used `msfvenom` from the Metasploit Framework. This produces raw Win64 shellcode that spawns `calc.exe`:
 ```
