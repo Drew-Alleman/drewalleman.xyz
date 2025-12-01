@@ -289,9 +289,8 @@ Finally we can use [CloseHandle](https://learn.microsoft.com/en-us/windows/win32
 ```
 
 # Bypassing Windows AV
-Now will all the code completed lets compile it and attempt to run it.
-![Caught By Windows Defender](/assets/images/defender_caught.png)
 Awww man Windows Defender caught it! Lets implement some obfuscation techniques. 
+![Caught By Windows Defender](/assets/images/defender_caught.png)
 
 ## Sleeping Between Actions
 Executing `VirtualAllocEx → WriteProcessMemory → CreateRemoteThread` back-to-back within milliseconds is highly suspicious behavior and easily flagged by Defender and other EDR products.
