@@ -11,22 +11,23 @@ categories:
 tags:
   - cpp
   - hacking
-image: /assets/images/keylogger.jepg
+image: /assets/images/keylogger.jpeg
 image_alt: Building a Keylogger for Windows in C++
 author: Drew Alleman
-last_modified_at: 2025-12-7 9:07:00 -0700
+last_modified_at: 2025-12-7 9:12:00 -0700
 ---
 # Introduction
 This is for education purposes only! I built this to prepare for building offensive tools in red teaming assignments. 
 # Goals
 This project is for educational purposes only. I built it to better understand how low-level keyboard input works in Windows and to prepare for writing offensive tooling in red team engagements.
 # Quicklinks
-- [[#Capturing Keyboard Input with GetAsyncKeyState]]
-- [[#Mapping Keycodes to Real Characters]]
-- [[#Fetching the Current Process Name]]
-- [[#Building our Keylogger Function]]
-- [[#Writing our Keypresses to a File]]
-- [[#Our Final Keylogger Function]]
+- [Capturing Keyboard Input with GetAsyncKeyState](#capturing-keyboard-input-with-getasynckeystate)
+- [Mapping Keycodes to Real Characters](#mapping-keycodes-to-real-characters)
+- [Fetching the Current Process Name](#fetching-the-current-process-name)
+- [Building our Keylogger Function](#building-our-keylogger-function)
+- [Writing our Keypresses to a File](#writing-our-keypresses-to-a-file)
+- [Our Final Keylogger Function](#our-final-keylogger-function)
+
 # Capturing Keyboard Input with GetAsyncKeyState
 
 There’s no single Windows API that says “give me every key the user presses.” Instead, we can poll the state of each virtual key using [GetAsyncKeyState](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getasynckeystate) to detect when a key has just been pressed.
