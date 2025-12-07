@@ -27,7 +27,6 @@ title: About
                     <a href="https://www.youtube.com/@drewalleman" class="social-link">YouTube</a>
                     <a href="https://github.com/Drew-Alleman" class="social-link">GitHub</a>
                     <a href="https://www.linkedin.com/in/drew-alleman-909352209" class="social-link">LinkedIn</a>
-                    <a href="mailto:contact@drewalleman.xyz" class="social-link">Email</a>
                 </div>
             </div>
         </section>
