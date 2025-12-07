@@ -17,9 +17,12 @@ author: Drew Alleman
 last_modified_at: 2025-12-7 9:12:00 -0700
 ---
 # Introduction
-This is for education purposes only! I built this to prepare for building offensive tools in red teaming assignments. 
-# Goals
-This project is for educational purposes only. I built it to better understand how low-level keyboard input works in Windows and to prepare for writing offensive tooling in red team engagements.
+This is for education purposes only! I built this to prepare for building offensive tools in red teaming assignments and to understand how low-level keyboard input works in Windows.
+
+The goals of this project is to:
+	- Fetch The Active Key the user is typing
+	- Log the keypress to a file along with the process name 
+	
 # Quicklinks
 - [Capturing Keyboard Input with GetAsyncKeyState](#capturing-keyboard-input-with-getasynckeystate)
 - [Mapping Keycodes to Real Characters](#mapping-keycodes-to-real-characters)
