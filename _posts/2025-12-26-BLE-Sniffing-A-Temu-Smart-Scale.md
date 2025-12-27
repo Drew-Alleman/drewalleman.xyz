@@ -184,6 +184,43 @@ This would convert the following example:
 
 `0x1be4` -> 7140 which divided by 100 is 71.40 which closely matches the actual weight displayed by the scale.
 
+We can then make a nice print message to display the weight in pounds and kilograms.
+```python
+def get_weight_from_bytes(data: bytes) -> tuple[float, float]:
+	weight_raw = int.from_bytes(data, byteorder="big")
+	weight_kg = weight_raw / 100.0
+	weight_lb = weight_kg * 2.2046226218
+	return weight_kg, weight_lb
+
+def detection_callback(device, advertisement_data):
+	if device.address.upper() != TARGET_MAC:
+		return
+
+	mfg = advertisement_data.manufacturer_data
+	if not mfg:
+		return
+
+	for _, data in mfg.items():
+		hex_data = data.hex()
+		if hex_data == STEPPED_ON_HEX:
+			print("[+] Scale has been stepped on")
+			continue
+
+		kg, lb = get_weight_from_bytes(data[0:2])
+		print(f"[+] User weighed in at {kg}kgs {lb}lbs")
+```
+Running the script:
+```
+$ python3 ble_sniffer.py
+[+] Scale has been stepped on
+[+] User weighed in at 85.25 kg (187.94 lb)
+[+] User weighed in at 85.25 kg (187.94 lb)
+[+] Scale has been stepped on
+[+] User weighed in at 85.25 kg (187.94 lb)
+[+] Scale has been stepped on
+[+] User weighed in at 85.25 kg (187.94 lb)
+```
+
 # Adding BLE Scale Discovery
 I then wanted to implement a small method to discover a scale on the network when stepped on. This can be done by simply looping through BLE traffic and if matches the STEPPED_ON hex value we can mark it as a scale.
 
