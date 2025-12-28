@@ -52,47 +52,65 @@ Z = up / down  ← height
 ```
 
 Start by loading up a solo game and connect Cheat Engine to the handle of killing floor. Stand still in game, and search for an unknown initial value float. 
-
+<br><br>
 ![Pasted image 20251227174509](/assets/images/pasted-image-20251227174509.png)
-
+<br>
 Then find an area in the map where you are at a higher elevation, go back into cheat engine and scan for an increased value.
+<br><br>
 ![Pasted image 20251227174907](/assets/images/pasted-image-20251227174907.png)
+<br>
 Then go to a lower elevation and search for a decreased value
+<br><br>
 ![Pasted image 20251227174953](/assets/images/pasted-image-20251227174953.png)
-
+<br>
 Keep repeating these 2 steps above until you have only around 10 addresses left. Please ensure you have simple values only on. 
+<br><br>
 ![Pasted image 20251227175145](/assets/images/pasted-image-20251227175145.png)
-
-Next add all the addresses above to your address list and attempt locking them, if your character starts to freeze / glitch out when you jump you found the correct value. In my case the memory address was `0x3196E154`.
+<br>
+Next add all the addresses above to your address list and attempt locking them, if your character starts to freeze / glitch out when you jump you found the correct value. In my case the memory address was `0x3196E154`.<br><br>
 ![Pasted image 20251227175446](/assets/images/pasted-image-20251227175446.png)
-
+<br>
 # Finding a Valid Pointer to the Z Cord
 The next step is finding the pointer to this value where the base memory address is the local player object. This way we can map these memory endpoints (e.g: health, xyz cords, ammo) to actual class variables.  To perform a pointer scan we need to left click the `realZ` memory address in the address list and select "Pointer scan for this address". 
+<br><br>
 ![Pasted image 20251227175731](/assets/images/pasted-image-20251227175731.png)
+<br>
 Then in the pointer scan options set the max level to 2. Then click "OK".
+<br>
 ![Pasted image 20251227175825](/assets/images/pasted-image-20251227175825.png)
+<br><br>
 When the pointer scan is complete you should see around 90 results.
+<br>
 ![Pasted image 20251227175940](/assets/images/pasted-image-20251227175940.png)
-
+<br><br>
 The next step is straightforward: keep restarting the game while leaving the pointer scan open. After each restart, reattach Cheat Engine to Killing Floor, load into a game, and rescan the target process to filter out any invalid pointers. Continue adding the remaining valid pointers to your address list and removing the invalid ones as you repeat this process.
+<br>
 ![Pasted image 20251227180143](/assets/images/pasted-image-20251227180143.png)
+<br>
 ![Pasted image 20251227180112](/assets/images/pasted-image-20251227180112.png)
 
 By repeating this process I ended up with a small list of pointers. I kept loading up a game and freezing the pointers to see if it affected my Z cord in game eventually I landed with the pointer attached to Core.dll with only one offset.
+<br>
 ![Pasted image 20251227180310](/assets/images/pasted-image-20251227180310.png)
-
+<br><br>
 # Finding the Pointer to the XY Cords
 
 Now with a pointer to the Z cord mapped we should be able to find the XYZ cords also close in memory, use CTRL+C and CTRL+V to make a copy of the pointer and use the arrows to cycle forward and backward in memory.
+<br>
 ![Pasted image 20251227181129](/assets/images/pasted-image-20251227181129.png)
+<br><br>
 Selecting the arrow once resulted in me finding the `X` cord. I confirmed it was the X cord and when I attempted to move left/right I noticed my character freezing.
+<br>
 ![Pasted image 20251227181303](/assets/images/pasted-image-20251227181303.png)
-
+<br><br>
 Then by clicking the left arrow one more time we find the `Y` cord.
+<br>
 ![Pasted image 20251227181506](/assets/images/pasted-image-20251227181506.png)
-
+<br><br>
 With them all added:
+<br>
 ![Pasted image 20251227182121](/assets/images/pasted-image-20251227182121.png)
+<br><br>
 # Creating C++ Code to Represent Our Player
 
 # 1. Finding the Entry Point
