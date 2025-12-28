@@ -5,7 +5,7 @@ description: "Creating a cheat that gives us unlimited money and health along wi
 date: 2025-12-27 12:38:22 -0700
 categories: [game-hacking, hacking, cheats]
 tags: [reverse-engineering, hacking, game-hacking]
-image: /assets/images/kf_2.png
+image: /assets/images/pasted-image-20251227214304.png
 image_alt: "Killing Floor Cheats"
 author: Drew Alleman
 last_modified_at: 2025-12-27 12:38:22 -0700
