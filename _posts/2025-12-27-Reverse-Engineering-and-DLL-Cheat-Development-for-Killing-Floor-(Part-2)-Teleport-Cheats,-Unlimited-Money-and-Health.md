@@ -119,25 +119,25 @@ while (keepRunning) {
 ## Testing
 Then I complied the DLL and injected it into my game, using F1 to save my position once I spawned in a game. 
 
-![Pasted image 20251227202434](/assets/images/pasted-image-20251227202434.png) <br>
+![Pasted image 20251227202434](/assets/images/pasted-image-20251227202434.png) <br><br>
 
 I then walked to a random spot in the map and then selected F2 to load the saved position.
 
-![Pasted image 20251227202520](/assets/images/pasted-image-20251227202520.png)
+![Pasted image 20251227202520](/assets/images/pasted-image-20251227202520.png)<br><br>
 
 Yippie it works....
-![Pasted image 20251227202613](/assets/images/pasted-image-20251227202613.png)
+![Pasted image 20251227202613](/assets/images/pasted-image-20251227202613.png)<br><br>
 # Finding our Health Pointer
 Since we were able to enumerate our localplayer pointer in `Core.dll` we can browse around this memory region hunting for more variables. In game I currently have 39 health so I am going to left-click the Z Cord (or y/x it really doesn't matter) and use CTRL+B to browse the memory region. Then select "Dissect data/structures".
-![Pasted image 20251227203331](/assets/images/pasted-image-20251227203331.png)
+![Pasted image 20251227203331](/assets/images/pasted-image-20251227203331.png)<br><br>
 
 Then define a new structure it called it "Player".
-![Pasted image 20251227203417](/assets/images/pasted-image-20251227203417.png)
+![Pasted image 20251227203417](/assets/images/pasted-image-20251227203417.png)<br><br>
 
 I'm allocating a size of 10096 just so I can really browse around and look for my health.
-![Pasted image 20251227203753](/assets/images/pasted-image-20251227203753.png)
+![Pasted image 20251227203753](/assets/images/pasted-image-20251227203753.png)<br><br>
 Now you should see the memory region in the structure dissector. We can use CTRL+F to search for our health value.
-![Pasted image 20251227203826](/assets/images/pasted-image-20251227203826.png)
+![Pasted image 20251227203826](/assets/images/pasted-image-20251227203826.png)<br><br>
 
 I then added it to the code list and attempted to change it to 1337.
 ![Pasted image 20251227203946](/assets/images/pasted-image-20251227203946.png)<br><br>
@@ -152,10 +152,10 @@ We still need to find the offset the health compared to the base pointer:
 ```
 
 Lets look back at the pointer for Z. This base pointer resolves to `31F20000` and the health address is at `31F20480`. The difference is `0x480` which means that's the offset.
-![Pasted image 20251227204213](/assets/images/pasted-image-20251227204213.png)<br>
+![Pasted image 20251227204213](/assets/images/pasted-image-20251227204213.png)<br><br>
 
 Create a copy of the Z offset and change the description to health and the offset from 154->480.
-![Pasted image 20251227204352](/assets/images/pasted-image-20251227204352.png)<br>
+![Pasted image 20251227204352](/assets/images/pasted-image-20251227204352.png)<br><br>
 # Creating God Mode Cheats
 Just like before we create a padding object holding our offset for the health variable.
 ```c++
@@ -198,16 +198,16 @@ void CheatLoop(HMODULE hModule) {
 
 # Finding the Pointer to our Money
 I tried repeating the steps above, but I was unable to find the memory address for the player's money. I searched for my money value in Cheat Engine and used the 'B' key to toss out money, then searched for the new value until I found the correct address.
-![Pasted image 20251227205729](/assets/images/pasted-image-20251227205729.png)<br>
+![Pasted image 20251227205729](/assets/images/pasted-image-20251227205729.png)<br><br>
 
 I then performed a pointer scan on the correct address with the maximum level of offsets being 1.
-![Pasted image 20251227205855](/assets/images/pasted-image-20251227205855.png)<br>
+![Pasted image 20251227205855](/assets/images/pasted-image-20251227205855.png)<br><br>
 
 The pointer scan returned a single result. Interestingly, the base address differs from our initial `localplayer` pointer, confirming that this is a separate object entirely. At first glance, the addresses look nearly identical, which led me to believe they were the same.
-![Pasted image 20251227210006](/assets/images/pasted-image-20251227210006.png)<br>
+![Pasted image 20251227210006](/assets/images/pasted-image-20251227210006.png)<br><br>
 
 Now we can add that pointer to our Cheat Table.
-![Pasted image 20251227212906](/assets/images/pasted-image-20251227212906.png)<br>
+![Pasted image 20251227212906](/assets/images/pasted-image-20251227212906.png)<br><br>
 
 # Creating an Unlimited Money Cheat
 Since this money pointer has a different base pointer we need to define a new object. I just called it game for now.
