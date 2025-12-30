@@ -104,8 +104,10 @@ The `LocalPlayer` object we found earlier is a `APawn`. Let's start by mapping t
 - `GetModules()` - - Used to load the base address of `Engine.dll`
 - `GetLocalPlayer()` fetches the `LocalPlayer` pointer and loads it into an `APawn` object.
 ## Cheats.h
+
 ```c++
 #pragma once
+
 #include <Windows.h>
 #include <iostream>
 #include <vector>
@@ -202,15 +204,17 @@ DWORD WINAPI MainThread(LPVOID lpParam) {
 }
 ```
 
-Then after running it we can see it set my health to 1337 and my XYZ coords are briefly displayed. 
-![testInject](/assets/images/testinject.gif)
+Then after running it we can see it set my health to 1337 and my XYZ coords are briefly displayed. <br>
+![testInject](/assets/images/testinject.gif)<br>
 # Finding AActor::GetLevel()  In Ghidra
 In Unreal Engine 2, memory isn't just a flat list of variables; it’s a family tree. Since `APawn` inherits from `AActor`, it automatically "receives" all the properties of an Actor, such as location and level data. By mirroring this hierarchy in our C++ code, we ensure that our offsets stay perfectly aligned with the game's internal memory layout. We can browse functions that are associated to the `AActor` class by using Ghidra's function search tool at `Window` -> `Functions`.
-![Pasted image 20251229172819](/assets/images/pasted-image-20251229172819.png)
+
+![Pasted image 20251229172819](/assets/images/pasted-image-20251229172819.png)<br><br>
 
 While digging through the `Engine.dll` functions in Ghidra, I stumbled upon a vital "Getter" function: `AActor::GetLevel`. By decompiling this function, we can see that it simply returns a pointer stored at `this + 0x9c`.
-![Pasted image 20251230143116](/assets/images/pasted-image-20251230143116.png)
-![Pasted image 20251230143627](/assets/images/pasted-image-20251230143627.png)This confirms that our manual offset for the `ULevel` pointer is 100% engine-accurate. Let's update our `AActor.h`
+![Pasted image 20251230143116](/assets/images/pasted-image-20251230143116.png)<br><br>
+![Pasted image 20251230143627](/assets/images/pasted-image-20251230143627.png)<br><br>
+This confirms that our manual offset for the `ULevel` pointer is 100% engine-accurate. Let's update our `AActor.h`
 ```c++
 
 class AActor {
@@ -225,8 +229,8 @@ public:
 ```
 
 ## Reversing GetActorIndex to get the EntityList
-The level object is very important, it contains the entity list of all entities loaded into the map. Let's try to find it. I started by searching for the string "ULevel" in the functions window.
-![Pasted image 20251230143815](/assets/images/pasted-image-20251230143815.png)
+The level object is very important, it contains the entity list of all entities loaded into the map. Let's try to find it. I started by searching for the string "ULevel" in the functions window.<br>
+![Pasted image 20251230143815](/assets/images/pasted-image-20251230143815.png)<br><br>
 
 I found the following function:
 ```c++
@@ -345,5 +349,5 @@ void Cheats::Start() {
 ```
 
 As shown below, the level contains **4,967 entities**. In the next post, we will filter this list and enumerate additional `AActor` and `APawn` offsets.
-
+<br><br>
 ![too_many_entities](/assets/images/too-many-entities.gif)
