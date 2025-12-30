@@ -13,7 +13,7 @@ last_modified_at: 2025-12-30 10:38:22 -0700
 # Introduction
 In this post, I made several structural changes to the codebase to better reflect Unreal Engine’s internal object hierarchy.  By the end of this post, we will have a complete list of all entities currently loaded into the map.
 # Changing the Pointer
-I updated the `LocalPlayer` pointer to use the following address, which has proven to be significantly more reliable during testing. It now always returns the correct `LocalPlayer` pointer either in Killing Floor more or Objective. 
+I updated the `LocalPlayer` pointer to use the following address, which has proven to be significantly more reliable during testing. It now always returns the correct `LocalPlayer` pointer either in Killing Floor mode or Objective. 
 ```
 "Engine.dll"+004C6934 + 0x38
 ```
