@@ -2,13 +2,13 @@
 layout: post
 title: "Reverse Engineering Unreal Engine and Internal DLL Cheat Development for Killing Floor (Part 5) – Creating an Instakill Cheat, Messing and with DrawScales"
 description: "In this post we are manipulating the core AActor class. I’ll be walking you through the logic for a mass health override forcing every Zed in the level to 1 HP. Then diving into the renderer's memory to physically scale enemy models."
-date:  2025-16-30 13:38:22 -0700
+date: 2025-16-30 13:38:22 -0700
 categories: [game-hacking, hacking, cheats]
 tags: [reverse-engineering, hacking, game-hacking]
 image: /assets/images/kf_5.png
 image_alt: "Killing Floor Cheats"
 author: Drew Alleman
-last_modified_at:2025-16-30 13:38:22 -0700
+last_modified_at: 2025-16-30 13:38:22 -0700
 ---
 
 # Introduction
