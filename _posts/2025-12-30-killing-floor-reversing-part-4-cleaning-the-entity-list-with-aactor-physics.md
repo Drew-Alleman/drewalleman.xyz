@@ -42,11 +42,12 @@ pPhysics = this[0x74];
 this[0x74] = newPhysics;
 ```
 
-I added it to Cheat Engine, watch the number change from 1-2.
+I added it to Cheat Engine, watch the number change from `1`-`2` while im falling.
+![physics](/assets/images/physics.gif) <br>
 
-![physics](/assets/images/physics.gif)
-also watch what happens when I change it to 4.
-![flying](/assets/images/flying.gif)
+also watch what happens when I change it to `4`.
+![flying](/assets/images/flying.gif)<br><br>
+
 
 This definitely is our `Physics` state, lets create an `enum` for it in `enums.h`.
 ## Enums.h
@@ -73,7 +74,7 @@ inline const char* GetPhysicsName(unsigned char physics) {
 }
 ```
 
-Now lets add the Physics offset to our `AActor` class.
+Now lets add the `Physics` offset to our `AActor` class.
 ```c++
 #pragma once
 #include "Enums.h"
