@@ -350,4 +350,4 @@ void Cheats::Start() {
 
 As shown below, the level contains **4,967 entities**. In the next post, we will filter this list and enumerate additional `AActor` and `APawn` offsets.
 <br><br>
-![too_many_entities](/assets/images/too-many-entities.gif)
+![too_many_entities](/assets/images/too_many_entities.gif)
