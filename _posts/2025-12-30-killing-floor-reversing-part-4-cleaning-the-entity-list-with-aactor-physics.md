@@ -45,7 +45,7 @@ this[0x74] = newPhysics;
 I added it to Cheat Engine, watch the number change from `1`-`2` while im falling.
 ![physics](/assets/images/physics.gif) <br>
 
-also watch what happens when I change it to `4`.
+Then when I changed it to `4`, I started flying.
 ![flying](/assets/images/flying.gif)<br><br>
 
 
