@@ -108,7 +108,7 @@ bool Cheats::FetchEndSceneAddress() {
 ```
 
 Then when we inject our DLL we can see the address was successfully grabbed: 
-![Pasted image 20260101232218](/assets/images/pasted-image-20260101232218.png)
+![Pasted image 20260101232218](/assets/images/pasted-image-20260101232218.png) <br><br>
 # Hooking the EndScene Function
 With the code built to dynamically fetch the address of the `EndScene` function built we will now need to design the function that will actually serve as our hook. This is where we will actually render what we want to the screen. In the snippet below I added a section that renders a red rectangle to the screen.
 
@@ -177,7 +177,7 @@ void Cheats::Cleanup() {
 ```
 
 Ensure you add `libMinHook.x86.lib` and `minhook.h` to your source!
-![Pasted image 20260102013546](/assets/images/pasted-image-20260102013546.png)
+![Pasted image 20260102013546](/assets/images/pasted-image-20260102013546.png)<br><br>
 
 I then modified the `Start` function to create our `EndScene` hook with the function we just created. 
 ```c++
@@ -218,7 +218,7 @@ void Cheats::Start() {
 ```
 
 Now if we compile and inject our code we see a red box appear! 
-![Pasted image 20260102001320](/assets/images/pasted-image-20260102001320.png)
+![Pasted image 20260102001320](/assets/images/pasted-image-20260102001320.png)<br><br>
 
 # Code Reformat for GUI Interface
 We need to modify our code a little in order to reference our Cheat class in our hook. Instead of  the Cheats class being Instantiated  in the `MainThread` function like below:
@@ -240,9 +240,9 @@ DWORD WINAPI MainThread(LPVOID lpParam) {
 }
 ```
 
-We will shift our code to using a global instance of cheats, so it can be referenced in our hook. We will also be adding some Boolean values to serve as a toggle for our cheats. Note the extern line at the bottom! (Extern tells the compiler that the 'cheats' object exists, but it's actual 'home' is in another file,)
+We will shift our code to using a global instance of cheats, so it can be referenced in our hook. We will also be adding some Boolean values to serve as a toggle for our cheats. Note the extern line at the bottom! (Extern tells the compiler that the 'cheats' object exists, but it's actual 'home' is in another file,)<br>
 
-`Cheats.h:
+`Cheats.h`:
 ```c++
 #pragma once
 #include <Windows.h>
@@ -406,9 +406,9 @@ HRESULT STDMETHODCALLTYPE hkEndScene(IDirect3DDevice9* pDevice) {
 Now let's use [ImGui](https://github.com/ocornut/ImGui/) to create a GUI for our cheat. We can render the gui in the `EndScene` hook we created earlier. And use the `WndProc` callback to capture user input to the GUI.
 
 You will need to add the following items to your source:
-![Pasted image 20260102012534](/assets/images/pasted-image-20260102012534.png)
-![Pasted image 20260102150448](/assets/images/pasted-image-20260102150448.png)
-![Pasted image 20260102150504](/assets/images/pasted-image-20260102150504.png)
+![Pasted image 20260102012534](/assets/images/pasted-image-20260102012534.png)<br><br>
+![Pasted image 20260102150448](/assets/images/pasted-image-20260102150448.png)<br><br>
+![Pasted image 20260102150504](/assets/images/pasted-image-20260102150504.png)<br><br>
 
 Then we need to add the imports to our `cheats.h`:
 ```c++
@@ -530,7 +530,8 @@ I also adding the following block to the `WndProc` callback to draw an ImGui cur
 
 Now when I compiled and ran my code I was able to see my menu in-game! In the next blog post I will be finding the players view matrix in order to create ZED ESP. 
 
-![pMenu](/assets/images/pmenu.gif)
+![pMenu](/assets/images/pmenu.gif)<br><br>
+
 # Full Code
 https://github.com/Drew-Alleman/InternalKF
 Full `Cheats.cpp`:
