@@ -530,7 +530,7 @@ I also adding the following block to the `WndProc` callback to draw an ImGui cur
 
 Now when I compiled and ran my code I was able to see my menu in-game! In the next blog post I will be finding the players view matrix in order to create ZED ESP. 
 
-![pMenu](/assets/images/pmenu.gif)<br><br>
+![pMenu](/assets/images/pMenu.gif)<br><br>
 
 # Full Code
 https://github.com/Drew-Alleman/InternalKF
