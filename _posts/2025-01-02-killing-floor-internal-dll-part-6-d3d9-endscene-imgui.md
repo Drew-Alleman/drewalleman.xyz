@@ -3,13 +3,13 @@ layout: post
 title: "Internal DLL Cheat Development for Killing Floor (Part 6) – Hooking DirectX9 EndScene with MinHook and Creating a UI with ImGUI"
 description: "In this post we’ll hook DirectX9’s `EndScene` to render an ImGui overlay. By the end, you’ll have a working menu drawn every frame, with input handled via a Win32 `WndProc` hook.  
 **Prereqs:** Visual Studio, DirectX9 headers/libs, MinHook, ImGui, and a **matching architecture** (x86 game → x86 DLL)."
-date: 2025-1-2 10:38:22 -0700
+date: 2026-1-2 10:38:22 -0700
 categories: [game-hacking, hacking, cheats]
 tags: [reverse-engineering, hacking, game-hacking]
 image: /assets/images/kf_6.png
 image_alt: "Killing Floor Cheats"
 author: Drew Alleman
-last_modified_at: 2025-1-2 10:38:22 -0700
+last_modified_at: 2026-1-2 10:38:22 -0700
 ---
 # Introduction
 In this post we’ll hook DirectX9’s `EndScene` to render an ImGui overlay. By the end, you’ll have a working menu drawn every frame, with input handled via a Win32 `WndProc` hook.  
