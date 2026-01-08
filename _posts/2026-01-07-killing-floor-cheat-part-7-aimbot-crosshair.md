@@ -5,7 +5,7 @@ description: "In this blog post we will be implementing aimbot, some optimizatio
 date: 2026-1-7 10:38:22 -0700
 categories: [game-hacking, hacking, cheats]
 tags: [reverse-engineering, hacking, game-hacking]
-image: /assets/images/kf_6.png
+image: /assets/images/kf_7.png
 image_alt: "Killing Floor Cheats"
 author: Drew Alleman
 last_modified_at: 2026-1-7 10:38:22 -0700
@@ -68,24 +68,30 @@ Now all we have to do is add the following line to `hkEndScene`:
 HRESULT STDMETHODCALLTYPE hkEndScene(IDirect3DDevice9* pDevice) {
     if (cheats.bCanUnload) return oEndScene(pDevice);
 
-	// Static configuration to run on first call
-	// ...
+	// static init code block
 
-    cheats.RunCheats(); // NEW!!!
-
-    // 1. BACKUP GAME STATE
     IDirect3DStateBlock9* pStateBlock = nullptr;
     if (pDevice->CreateStateBlock(D3DSBT_ALL, &pStateBlock) == D3D_OK) {
         pStateBlock->Capture();
     }
 
-    // 2. RENDER IMGUI
-    // ... 
+    ImGui_ImplDX9_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    cheats.RunCheats(); // NEW
+    cheats.DrawMenu();
+
+    ImGui::EndFrame();
+    ImGui::Render();
+    ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
 
     // 3. RESTORE GAME STATE & CLEANUP
-    // ... 
-    
-	// 4. RETURN AND PROFIT??!
+    if (pStateBlock) {
+        pStateBlock->Apply();
+        pStateBlock->Release();
+    }
+
     return oEndScene(pDevice);
 }
 
