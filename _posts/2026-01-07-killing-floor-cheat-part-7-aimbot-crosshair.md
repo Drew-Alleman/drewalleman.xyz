@@ -16,7 +16,6 @@ Today, we are taking our internal cheat to the next level by focusing on synchro
 - **Refactoring our Logic:** Moving our cheat execution into the `EndScene` hook to stay perfectly in sync with the game's render loop.
 - **Enhancing the UX:** Replacing clunky hotkeys with dynamic ImGui sliders and a custom-drawn crosshair.
 - **Reverse Engineering View Angles:** Using Ghidra to hunt down the `Pitch`, `Yaw`, and `Roll` offsets required for an Aimbot cheat.
-- Rendering a Crosshair: Using ImGui to display a crosshair to the screen.
 # Moving Cheat Logic To EndScene Hook
 I decided to reformat the code to run the actual cheat logic inside the `EndScene` hook to synchronize with the render loop. To do this we will need to refactor the current `Start` function to simply sleep until we unload the cheats with the `END` key. Then we’ll create a new function called `RunCheats()` to actually hold our logic for things like Instakill or `APawn` scaling. I will also be only fetching the moving `APawns` on the loaded map once per `EndScene` call and pass the found `APawns` to the `Instakill()` or `ScaleAAPawns()` functions. (we will implement caching in the future!)
 
