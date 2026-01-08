@@ -161,7 +161,7 @@ void Cheats::RunCheats() {
 ```
 
 Now if we compile and inject our DLL we can see the ImGUI float slider appear:
-![pFloatSlider](/assets/images/pfloatslider.gif)
+![pFloatSlider](/assets/images/pfloatslider.gif) <br><br>
 
 # Creating a Crosshair
 This is pretty easy, all we have to do is calculate the center of the screen and draw 4 lines. Luckily we can actually do this from ImGUI! I'm recalculating the center of the screen on every call just in case the game switches resolutions. In the future we will be adding a color picker and float sliders to customize our crosshair using ImGUI.
@@ -215,7 +215,7 @@ void Cheats::RunCheats() {
 ```
 
 And "now" we have a simple crosshair:
-![Pasted image 20260105212803](/assets/images/pasted-image-20260105212803.png)
+![Pasted image 20260105212803](/assets/images/pasted-image-20260105212803.png) <br><br>
 
 # Finding Pitch Yaw and Roll
 Now it's time to work on our aimbot, but we first need the View angles of our player (Pitch and Yaw) and the height of the current entity. 
@@ -224,7 +224,7 @@ To aim at a target, the game needs to know two angles:
 1. **Yaw:** Which way are you facing left/right? (Looking around the horizon).
 2. **Pitch:** Which way are you facing up/down? (Looking at the sky or ground).
 
-![Pasted image 20260107205948](/assets/images/pasted-image-20260107205948.png)
+![Pasted image 20260107205948](/assets/images/pasted-image-20260107205948.png) <br><br>
 In Ghidra I found the following function that provided me the offsets for the players view angle
 ```c++
 void __thiscall AActor::GetViewRotation(AActor *this,undefined4 *param_2)
@@ -310,13 +310,13 @@ std::cout << "ROLL: " << myPawn->Roll << std::endl;
 ```
 
 When I complied and injected the DLL I was able to see my view angles!
-![pViewAngles](/assets/images/pviewangles.gif)
+![pViewAngles](/assets/images/pviewangles.gif) <br><br>
 
 To finalize the targeting solution, we must apply a Height Offset. Because the current XYZ coordinates represent the user's 'Base Position' (ground level), aiming directly at these coordinates will result in a target undershoot. We need to translate the aim point vertically along the Z-axis to align with the target's head. I was actually able to enumerate this randomly by searching for float near the localplayers base pointer, in my next blog post I will be going into detail about my enumeration techniques for finding player offsets in Cheat Engine.
 
 The height index is located at `0x448`:
-![Pasted image 20260105215519](/assets/images/pasted-image-20260105215519.png)
-![pHeight 1](/assets/images/pheight-1.gif)
+![Pasted image 20260105215519](/assets/images/pasted-image-20260105215519.png) <br><br>
+![pHeight 1](/assets/images/pheight-1.gif) <br><br>
 
 Adding our offset to the `AActor` class:
 ```c++
@@ -466,10 +466,10 @@ void Cheats::RunCheats() {
 ```
 
 There are 2 major problems with this aimbot however, firstly it targets teammates:
-![pJankAim](/assets/images/pjankaim.gif)
+![pJankAim](/assets/images/pjankaim.gif) <br><br>
 
 Additionally it can not detect if an enemy is through a wall or not:
-![pSeeThroughWalls](/assets/images/pseethroughwalls.gif)
+![pSeeThroughWalls](/assets/images/pseethroughwalls.gif) <br><br>
 
 Lets end this tutorial by solving the first problem. Since we don't have any type of team indicator yet to signify if an `APawn` is a player, or enemy. To solve this temporarily, I implemented a **Height Filter**. During my reverse engineering sessions in Cheat Engine, I noticed a consistent pattern: the player models and friendly NPCs usually share a different height offset than the enemy "Zeds."
 
