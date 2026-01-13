@@ -3,8 +3,8 @@ layout: post
 title: "Reverse Engineering Unreal Engine and Internal DLL Cheat Development for Killing Floor (Part 3) – Finding the Entity List"
 description: "In this post, I made several structural changes to the codebase to better reflect Unreal Engine’s internal object hierarchy.  By the end of this post, we will have a complete list of all entities currently loaded into the map."
 date: 2025-12-30 10:38:22 -0700
-categories: [game-hacking, hacking, cheats]
-tags: [reverse-engineering, hacking, game-hacking]
+categories: [game-hacking]
+tags: [reverse-engineering, game-hacking]
 image: /assets/images/kf_3.png
 image_alt: "Killing Floor Cheats"
 author: Drew Alleman
