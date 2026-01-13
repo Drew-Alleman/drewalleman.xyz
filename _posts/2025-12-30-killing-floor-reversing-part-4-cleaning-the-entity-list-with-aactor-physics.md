@@ -3,8 +3,8 @@ layout: post
 title: "Killing Floor Reversing Part 4 - Cleaning the Entity List with AActor Physics"
 description: "In the previous post, our entity list contained nearly 5,000 objects. In this post, we’ll build a filter to remove non-player actors and narrow the list down to likely enemy entities.."
 date: 2025-12-30 12:38:22 -0700
-categories: [game-hacking, hacking, cheats]
-tags: [reverse-engineering, hacking, game-hacking]
+categories: [game-hacking]
+tags: [reverse-engineering, game-hacking]
 image: /assets/images/kf_4.png
 image_alt: "Killing Floor Cheats"
 author: Drew Alleman
