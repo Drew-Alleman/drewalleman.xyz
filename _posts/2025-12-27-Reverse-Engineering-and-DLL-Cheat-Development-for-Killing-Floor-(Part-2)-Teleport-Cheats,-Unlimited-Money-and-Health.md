@@ -3,8 +3,8 @@ layout: post
 title: "Reverse Engineering and DLL Cheat Development for Killing Floor (Part 2) – Teleport Cheats, Unlimited Money and Health"
 description: "Creating a cheat that gives us unlimited money and health along with teleport binds."
 date: 2025-12-27 12:38:22 -0700
-categories: [game-hacking, hacking, cheats]
-tags: [reverse-engineering, hacking, game-hacking]
+categories: [game-hacking]
+tags: [reverse-engineering, game-hacking]
 image: /assets/images/pasted-image-20251227214304.png
 image_alt: "Killing Floor Cheats"
 author: Drew Alleman
