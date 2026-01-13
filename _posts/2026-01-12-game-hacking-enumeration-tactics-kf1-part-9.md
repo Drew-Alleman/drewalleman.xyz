@@ -26,7 +26,6 @@ By the end of the blog post we will locate the following variables in Killing Fl
 - Gun Drawing Modifiers
 - Weapon Zoom Scale
 - Actor Ambient Glow
-- Current Armor
 # Enumeration Tactics
  - **Dynamic Known Value Scanning:** Identifying specific variables by searching for "exact values" that change predictably (e.g., health, ammo, or carry weight).
   
@@ -104,7 +103,7 @@ I first identified a potential candidate at `0x2E497E84`. By manually overriding
 
 ![pArmor](/assets/images/parmor.gif)
 
-The next step was to convert these addresses into a permanent pointers. Since the base of our `APawn` object was located at `0x2E479000`, simple hexadecimal subtraction resulted in a relative offset of `0xE80` for the max armor. 
+The next step was to convert these addresses into a permanent pointers. Since the base of our `APawn` object was located at `0x2E479000`, simple hexadecimal subtraction resulted in a relative offset of `0xE80` for the max weight. 
 
 ![Pasted image 20260101165458](/assets/images/pasted-image-20260101165458.png)
 
@@ -117,7 +116,7 @@ Our player class should hold a pointer to the current weapon object in-game, thi
 
 ![Pasted image 20260109190641](/assets/images/pasted-image-20260109190641.png)
 
-I then swapped weapons and scanned for a changed value:
+I then swapped weapons and scanned for a changed value:		
 
 ![Pasted image 20260109190716](/assets/images/pasted-image-20260109190716.png)
 
