@@ -3,7 +3,7 @@ layout: post
 title: "Game Hacking Enumeration Finding Player Offsets and Mapping them to C++ Classes (Killing Floor Internal Cheats Part 8)"
 description: "Enumeration Tactics on finding player offsets with cheat engine then mapping them to c++ classes"
 date: 2026-1-12 08:38:22 -0700
-categories: [game-hacking, cheats]
+categories: [game-hacking]
 tags: [reverse-engineering, game-hacking]
 image: /assets/images/kf_8.png
 image_alt: "Killing Floor Cheats"
