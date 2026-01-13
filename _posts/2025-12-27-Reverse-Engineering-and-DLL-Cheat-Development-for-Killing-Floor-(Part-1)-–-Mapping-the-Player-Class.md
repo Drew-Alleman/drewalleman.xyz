@@ -3,8 +3,8 @@ layout: post
 title: "Reverse Engineering and DLL Cheat Development for Killing Floor (Part 1) – Mapping the Player Class"
 description: "I wanted to start a small series for creating internal DLL cheats for killing floor. Killing Floor is a cooperative first-person shooter survival game released in 2009, where players fight through increasingly difficult waves of enemies before a final boss round. You are able to buy weapons and gear after each round with a trader."
 date: 2025-12-27 09:38:22 -0700
-categories: [game-hacking, hacking, cheats]
-tags: [reverse-engineering, hacking, game-hacking]
+categories: [game-hacking]
+tags: [reverse-engineering, game-hacking]
 image: /assets/images/kf_1.png
 image_alt: "Killing Floor Cheats"
 author: Drew Alleman
