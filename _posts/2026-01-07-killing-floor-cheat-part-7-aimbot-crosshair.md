@@ -3,8 +3,8 @@ layout: post
 title: "Reverse Engineering and DLL Cheat Development for Killing Floor (Part 7) Aimbot, Optimizations and Rendering a Crosshair."
 description: "In this blog post we will be implementing aimbot, some optimizations and rendering a crosshair"
 date: 2026-1-7 10:38:22 -0700
-categories: [game-hacking, hacking, cheats]
-tags: [reverse-engineering, hacking, game-hacking]
+categories: [game-hacking]
+tags: [reverse-engineering, game-hacking]
 image: /assets/images/kf_7.png
 image_alt: "Killing Floor Cheats"
 author: Drew Alleman
