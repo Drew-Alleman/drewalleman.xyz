@@ -44,6 +44,7 @@ By the end of the blog post we will locate the following variables in Killing Fl
 # Enumeration via Cheat Engine Scanning
 ## Scanning the Local Pawn's Memory Region
 Take a look at the following Cheat Engine Screenshot. My Current Health variable is at the memory location `0x2B285480` with the pointer to the local pawn being at `0x2B285000`
+
 ![Pasted image 20260111182703](/assets/images/pasted-image-20260111182703.png)
 
 In this example, our Local Pawn starts at `0x2B285000`. Based on typical Unreal Engine class sizes, a range of `0x1000` (4096 bytes) is usually more than enough to cover all relevant player variables.
@@ -70,18 +71,23 @@ To find the offset for our `pSway` variable, we perform hexadecimal subtraction 
 ![Pasted image 20260101103746](/assets/images/pasted-image-20260101103746.png)
 
 I duplicated the health offset and changed it from `0x480` to `0xD78` and named it `pSway`: 
+
 ![Pasted image 20260101103808](/assets/images/pasted-image-20260101103808.png)
 
 ### Bobbing
 I then went to the next offset over: `0xD7C` and set it to zero and my weapon stopped bobbing when I walked around:
+
 ![Pasted image 20260101105445](/assets/images/pasted-image-20260101105445.png)
+
 ![pBob](/assets/images/pbob.gif)
 
 Then I duplicated the `pSway` pointer and changed the offset from `0xD78` to `0xD7C`
+
 ![Pasted image 20260109202609](/assets/images/pasted-image-20260109202609.png)
 
 ## Player Speed
 I found the player speed variable by scanning for constant floats and memory fuzzing the results, and eventually I found the address: `0x2F128E70`. This only gave me extreme speed when I set it to a value over or equal to 500:
+
 ![pSpeed](/assets/images/pspeed.gif)
 
 Then we calculate the offset the same way as before:
@@ -101,49 +107,63 @@ I first identified a potential candidate at `0x2E497E84`. By manually overriding
 The next step was to convert these addresses into a permanent pointers. Since the base of our `APawn` object was located at `0x2E479000`, simple hexadecimal subtraction resulted in a relative offset of `0xE80` for the max armor. 
 
 ![Pasted image 20260101165458](/assets/images/pasted-image-20260101165458.png)
+
 Then by hopping to the next offset over (`0x84`) I was able to find the current weight variable.
+
 ![Pasted image 20260101165551](/assets/images/pasted-image-20260101165551.png)
 
 ## Finding Current Weapon
 Our player class should hold a pointer to the current weapon object in-game, this weapon could have attributes like ammo, reload animation speed and recoil for example. To find the offset of this I used the Dynamic Semi-Unknown Value Scanning enumeration tactic I mentioned in the introduction. Since we are able to control the state of the active weapon. I started off by scanning for a 4 bytes unknown value in the local `APawn`s memory space:
+
 ![Pasted image 20260109190641](/assets/images/pasted-image-20260109190641.png)
 
 I then swapped weapons and scanned for a changed value:
+
 ![Pasted image 20260109190716](/assets/images/pasted-image-20260109190716.png)
 
 Then swapped back to the original value and scanned for a unchanged value compared to first scan:
+
 ![Pasted image 20260109190756](/assets/images/pasted-image-20260109190756.png)
 
 The top value stood out to me as it was way larger than the others so I added it to my cheat table.
+
 ![Pasted image 20260109190903](/assets/images/pasted-image-20260109190903.png)
 
 I then converted it to Hex and it looks just like a base pointer!
+
 ![Pasted image 20260109191003](/assets/images/pasted-image-20260109191003.png)
 
 Now we can add the offset `0x43C` to our player class for our current weapon:
+
 ![Pasted image 20260109191037](/assets/images/pasted-image-20260109191037.png)
 
 ## Finding Weapon Offsets
 I then started enumerating the weapons offsets by scanning the weapons memory region starting at the base pointer of `0x150FD000`:
+
 ![Pasted image 20260109222136](/assets/images/pasted-image-20260109222136.png)
 
 ### Zoom
 I found a zoom distance variable where the higher I changed the variable the less the weapon zoomed in:
+
 ![weaponZoom](/assets/images/weaponzoom.gif)
 
 This memory address was located at: `0x150FDE14` and the base pointer is at `0x150FD900`. Meaning we need to do some subtraction to figure out the offset luckily the windows calculator is able to help us!
 
 `0x150FDE14` - `0x150FD900`:
+
 ![offsetMath](/assets/images/offsetmath.gif)
 
 Now we can add this offset to our Cheat table:
+
 ![Pasted image 20260109222304](/assets/images/pasted-image-20260109222304.png)
 
 ### Weapon Draw Scale Modifiers
 By utilizing memory fuzzing I found 4 floats that when written to modify how the gun presented to the screen. I eventually figured out that it was the weapon width, height, depth and scale.  
+
 ![gunScale](/assets/images/gunscale.gif)
 
 These variables are right next to each other in memory: 
+
 ![Pasted image 20260111164708](/assets/images/pasted-image-20260111164708.png)
 
 # Enumerating Variables Using Cheat Commands and the Source Code
@@ -151,15 +171,18 @@ These variables are right next to each other in memory:
 # Actor Collision
 
 We can utilize the `showdebug` command to list a bunch of statistics about our current user. I noticed in the output a Boolean variable for collision with actors. 
+
 ![Pasted image 20260111155525](/assets/images/pasted-image-20260111155525.png)
 
 
 I opened up the source code for the `Pawn` class and searched for "Collide", and I found the variable `bCollideActors`:
+
 ![Pasted image 20260111184820](/assets/images/pasted-image-20260111184820.png)
 
 I then utilized the following command to disable actor collision allowing me to walk through enemies: `set Pawn bCollideActors False`
 
 I wasn't however able to find the Boolean for `bCollideActors` in memory, but I did find some type of bitwise operation flag for collision. When `bCollideActors` is False, the memory address had the value of 230, otherwise it was 231. 
+
 ![pCollisionFlag](/assets/images/pcollisionflag.gif)
 
 Unfortunately I have encountered a lot of crashes using this variable, even when just writing to it once. So I started playing around with the value and eventually I found that if I set it to `131` I was still able to walk through enemies, and my game didn't crash! 
@@ -178,6 +201,7 @@ Since this is a bitwise operator lets try to keep messing with it to see if we c
 
 ## Ambient Brightness
 I was browsing the source of the `Actor` class and found a `byte` called `AmbientGlow` a comment next to it mentioned how setting it to `255` would cause a pulsing glow, so it piqued my interest.
+
 ![Pasted image 20260111170516](/assets/images/pasted-image-20260111170516.png)
 
 I then hopped in-game and utilized the following command to set all `AActors` in the game to have an ambient glow of 255, and we all started glowing!
@@ -193,6 +217,7 @@ Adjusting it in-game, adjusts all Pawns brightness so I needed to find the corre
 I utilized the command console to set the games gravity levels for different floats, scanning the exact value in Cheat Engine.
 
 Command: `setgravity x`
+
 ![gameGravity](/assets/images/gamegravity.gif)
 
 I found the following stable pointer for the game gravity:
@@ -201,6 +226,7 @@ I found the following stable pointer for the game gravity:
 Killing Floor also offers a command to set the players jump height:
 
 Command: `setjumpz x`
+
 ![setJumpZ](/assets/images/setjumpz.gif)
 
 Finding the memory address of our `JumpZ`:
