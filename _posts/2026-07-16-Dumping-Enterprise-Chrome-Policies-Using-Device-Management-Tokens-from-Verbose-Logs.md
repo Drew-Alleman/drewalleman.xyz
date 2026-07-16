@@ -7,7 +7,8 @@ categories:
   - red-teaming
 tags:
   - chrome
-image_alt:
+image: /assets/images/token_showcase.png
+image_alt: "Device Management Token and Device ID in Chrome Logs"
 author: Drew Alleman
 last_modified_at: 2026-07-15T12:00:00Z
 ---
