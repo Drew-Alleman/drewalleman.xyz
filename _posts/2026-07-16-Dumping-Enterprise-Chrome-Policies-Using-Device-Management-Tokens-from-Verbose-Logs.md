@@ -2,14 +2,14 @@
 layout: post
 title: Dumping Enterprise Chrome Policies Using Device Management Tokens from Verbose Logs
 description: I’ll walk through post-compromise enumeration techniques to extract valuable information from verbose Chrome logs
-date: 2026-07-16T12:00:00Z
+date: 2026-07-15T12:00:00Z
 categories:
   - red-teaming
 tags:
   - chrome
 image_alt:
 author: Drew Alleman
-last_modified_at: 2026-07-16T12:00:00Z
+last_modified_at: 2026-07-15T12:00:00Z
 ---
 In this blog post, I’ll walk through post-compromise enumeration techniques to extract valuable information from verbose Chrome logs, including:
 - **Cloud Device ID** and **Device Management Token** — which can be used to dump full Enterprise Chrome OS / Browser cloud policies
