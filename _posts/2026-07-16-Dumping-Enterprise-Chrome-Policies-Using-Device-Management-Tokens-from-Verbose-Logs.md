@@ -11,6 +11,7 @@ image_alt:
 author: Drew Alleman
 last_modified_at: 2026-07-15T12:00:00Z
 ---
+
 In this blog post, I’ll walk through post-compromise enumeration techniques to extract valuable information from verbose Chrome logs, including:
 - **Cloud Device ID** and **Device Management Token** — which can be used to dump full Enterprise Chrome OS / Browser cloud policies
 - Antivirus products and their status
@@ -19,7 +20,6 @@ In this blog post, I’ll walk through post-compromise enumeration techniques to
 - Windows domain
 
 **Why This Matters:** This method allows red teamers (and security researchers) to enumerate host information without relying on native tools or commands like wmic, PowerShell, netstat, or systeminfo. 
-
 
 ## Finding the Device ID and Device Management Token
 Launching Chrome with verbose logging shows a device management token and a device ID. I'll run the browser headless and dump the output to a local file, specifying my enrolled enterprise profile (`Profile 1`)."
