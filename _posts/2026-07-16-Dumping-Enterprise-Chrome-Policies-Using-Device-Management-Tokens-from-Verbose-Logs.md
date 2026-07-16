@@ -36,7 +36,7 @@ PS C:\Users\dr.reynolds> Start-Process chrome.exe -ArgumentList @(
 ```
 
 In the output we can see our device id, and device management token. In my 24hs of testing I never had the token expire.
-![[Pasted image 20260715223910.png]]
+![Token Showcase](/assets/images/token_showcase.png)
 ## Querying Enterprise Policies
 Dumping the enterprise policies from here isn't exactly a straightforward process. Chromium uses protocol buffers, a compact binary format, to talk to the Device Management (DM) server and many other components. The message definitions live in Chromium's public `.proto` files, which is how we know what every byte maps to. Protobuf never puts field names on the wire, only numbers: each field is written as a tag byte or bytes (packing the field number and the value's wire type) followed by the value, so the stream is a repeating pattern of tag → length → data.
 
