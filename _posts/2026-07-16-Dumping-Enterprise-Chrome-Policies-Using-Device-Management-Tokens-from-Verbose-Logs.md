@@ -18,7 +18,9 @@ In this blog post, I’ll walk through post-compromise enumeration techniques to
 - Firewall status
 - Windows domain
 
->Why This Matters: This method allows red teamers (and security researchers) to enumerate host information without relying on native tools or commands like wmic, PowerShell, netstat, or systeminfo. 
+**Why This Matters:** This method allows red teamers (and security researchers) to enumerate host information without relying on native tools or commands like wmic, PowerShell, netstat, or systeminfo. 
+
+
 ## Finding the Device ID and Device Management Token
 Launching Chrome with verbose logging shows a device management token and a device ID. I'll run the browser headless and dump the output to a local file, specifying my enrolled enterprise profile (`Profile 1`)."
 
