@@ -45,18 +45,18 @@ We can combine all the arguments above to launch a window that's locked to 440,4
 ```
 
 Which then launches the following result:
-![[/assets/images/noresize.gif]]
+![/assets/images/noresize.gif]
 
 Additionally note how the icon of the browser window is the favicon of the website!
-![[/assets/images/Pasted image 20260716204717.png]]
+![/assets/images/Pasted image 20260716204717.png]
 
 ## Creating the Credential Prompt HTML
 ### CSS and HTML
 I launched a connection to my personal NAS and captured a screenshot of the Windows 11 credential prompt. I gave it to Claude prompting it to re-create the window. 
 
-![[/assets/images/Pasted image 20260716162349.png]]
+![/assets/images/Pasted image 20260716162349.png]
 
-![[/assets/images/Pasted image 20260716162428.png]]
+![/assets/images/Pasted image 20260716162428.png]
 
 I downloaded the provided login.html file then loaded it with the following chromium arguments:
 ```
@@ -76,13 +76,13 @@ Start-Process -FilePath $chromePath -ArgumentList $chromeArgs
 
 Unfortunately, it's not perfect. We should remove the 'x' button and the 'Windows Security' title, limiting the popup content to just the username and password fields, along with the 'Cancel' and 'OK' buttons.
 
-![[/assets/images/Pasted image 20260716164351.png]]
+![/assets/images/Pasted image 20260716164351.png]
 
 After a while of messing around with claude this was the final product. With the left prompt being the real windows prompt and the right one being a chrome window.
-![[/assets/images/Pasted image 20260716183501.png]]
+![/assets/images/Pasted image 20260716183501.png]
 
 The icon of this program is the favicon in the source code. which I have set to the windows security logo.
-![[/assets/images/Pasted image 20260716183711.png]]
+![/assets/images/Pasted image 20260716183711.png]
 
 ### Creating the Callback Logic
 Everything we generated so far is purely cosmetic we still need a way to capture what the user actually inputs into the form. To do this we will be using HTTP/s callback. With the credentials being exfiltrated over the target URI.
@@ -168,10 +168,10 @@ I then decided to create a python script to generate various different type of c
 link can be found here: https://github.com/Drew-Alleman/chromium-lure/
 
 Light mode yuck! I tried changing the top window color to match the real one, but had no success. I play on returning to try again. 
-![[/assets/images/Pasted image 20260716191857.png]]
+![/assets/images/Pasted image 20260716191857.png]
 
 I then added support for pre filled usernames just in case the target has multiple accounts:
-![[/assets/images/Pasted image 20260716192011.png]]
+![/assets/images/Pasted image 20260716192011.png]
 
 Custom Favicon and window title:
 ```
@@ -179,4 +179,4 @@ PS C:\Users\drew\chromium-lure> python .\generate.py 127.0.0.1 8000 --theme ligh
 [+] Done → prompt.html (light)
 ```
 
-![[/assets/images/Pasted image 20260716201520.png]]
+![/assets/images/Pasted image 20260716201520.png]
