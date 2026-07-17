@@ -170,17 +170,20 @@ I then decided to create a python script to generate various different type of c
 - An Optional pre-filled username
 - Dark/Light mode
 
+<br>
+
 link can be found here: https://github.com/Drew-Alleman/chromium-lure/
 
-Light mode yuck! I tried changing the top window color to match the real one, but had no success. I play on returning to try again. 
+Light mode yuck! I tried changing the top window color to match the real one, but had no success. I play on returning to try again. <br> 
 ![Light mode generated credential prompt](/assets/images/Pasted image 20260716191857.png)
 
-I then added support for pre filled usernames just in case the target has multiple accounts:
+I then added support for pre filled usernames just in case the target has multiple accounts: <br> 
 ![Generated credential prompt with pre-filled username](/assets/images/Pasted image 20260716192011.png)
 
 Custom Favicon and window title:
-```
+```text
 PS C:\Users\drew\chromium-lure> python .\generate.py 127.0.0.1 8000 --theme light --title test --favicon "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHO9lsP9wFHQAm5dh82iTJdhDdyxe-GtfLGEu1D0tVXk5s7xeMZSWutpg&s=10"
 [+] Done → prompt.html (light)
 ```
+
 ![Custom title and favicon generated prompt](/assets/images/Pasted image 20260716201520.png)
