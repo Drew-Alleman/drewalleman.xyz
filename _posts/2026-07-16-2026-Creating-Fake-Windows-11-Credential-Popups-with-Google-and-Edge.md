@@ -152,8 +152,10 @@ Finally we Link the form in the HTML to the `credentialForm` ID.
 With this setup, we can use either of the following to set up a listener:
 - `python -m http.server` (or a simple PowerShell script) running locally on the machine
 - a public domain or IP address the attacker controls
+
 <br>
-```
+
+```text
 PS C:\Users\drew\chromium-lure> .\SimpleHTTPServer.ps1 -Port 8000
 [*] Starting HTTP Server on http://127.0.0.1:8000
 [*] Press Ctrl+C to stop the server...
