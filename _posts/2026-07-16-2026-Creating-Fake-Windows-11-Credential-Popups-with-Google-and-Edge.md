@@ -174,7 +174,7 @@ I then decided to create a python script to generate various different type of c
 
 link can be found here: https://github.com/Drew-Alleman/chromium-lure/
 
-Light mode yuck! I tried changing the top window color to match the real one, but had no success. I play on returning to try again. <br> 
+Light mode yuck! I tried changing the top window color to match the real one, but had no success. I plan on returning to try again. <br> 
 ![Light mode generated credential prompt](/assets/images/Pasted image 20260716191857.png)
 
 I then added support for pre filled usernames just in case the target has multiple accounts: <br> 
