@@ -55,21 +55,31 @@
     height: auto;
   }
 
+  /* Container fix: Removes the white card frame and padding */
   .post-image {
-    width: 75%;
-    margin: 2rem auto;
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-  
-  .post-image img {
     width: 100%;
+    max-width: 1000px;
+    margin: 1.5rem auto;
+    padding: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Image fix: Targets BOTH the header banner and inline content images */
+  .post-image img,
+  .post-content img {
+    max-width: 100%;
     height: auto;
     display: block;
+    margin: 0 auto;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
   }
-  
+    
   .container > * {
     max-width: 100%;
     box-sizing: border-box;
