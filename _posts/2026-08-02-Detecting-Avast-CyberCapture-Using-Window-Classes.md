@@ -144,4 +144,4 @@ Below are a couple of screenshots from [Aziz Farghly's blogpost](https://farghly
 
 ![Showcase](/assets/images/Pasted image 20260802113052.png)
 ## Conclusion
-Sandbox evasion often comes down to hunting for the right environmental artifacts. By enumerating active system windows and identifying the specific UI elements left behind by Avast's CyberCapture (specifically the `snxhk_border_mywnd_*` class), we successfully built a lightweight C++ script that allows an executable to reliably detect when it is trapped in a sandbox.
+Sandbox evasion often comes down to hunting for the right environmental artifacts. By enumerating active system windows and identifying the specific UI elements left behind by Avast's CyberCapture (specifically the `snxhk_border_mywnd_*` class), we successfully built a lightweight C++ script that allows an executable to reliably detect when it is trapped in a sandbox. Full code can be found here: https://github.com/Drew-Alleman/detect_cybercapture
