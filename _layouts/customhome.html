@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Home - Welcome to My Blog
 layout: default
 ---
 <div class="home-container">
@@ -18,13 +18,23 @@ layout: default
 
     <!-- Main Content Area -->
     <section class="main-content">
+        <!-- SEO Intro Block: Fixes word count, paragraph count, and H1/Title matching -->
+        <header class="home-intro">
+            <h1>Welcome to the Home of My Blog</h1>
+            <p>Explore our latest articles, expert guides, and deep dives into technology, development, and web design. This blog is designed to provide you with actionable tutorials, troubleshooting tips, and valuable resources to help you master your digital projects.</p>
+            <p>Browse through our topic categories on the sidebar or check out our featured article and recent posts below to get started.</p>
+        </header>
+
         {% assign latest_post = site.posts.first %}
         {% if latest_post %}
         <article class="featured-post">
-            <header class="post-header">
+            <div class="post-header-meta">
                 <span class="post-date">{{ latest_post.date | date: "%B %d, %Y" }}</span>
-                <h1 class="post-title">{{ latest_post.title }}</h1>
-            </header>
+                <!-- Changed from H1 to H2 so the homepage retains a proper structural hierarchy -->
+                <h2 class="post-title">
+                    <a href="{{ latest_post.url }}">{{ latest_post.title }}</a>
+                </h2>
+            </div>
             
             {% if latest_post.image %}
             <div class="post-image">
@@ -35,9 +45,9 @@ layout: default
             {% endif %}
 
             <div class="post-content">
-                
+                <!-- Wrapped excerpt in a proper paragraph tag -->
                 <div class="post-excerpt">
-                    {{ latest_post.excerpt | strip_html | truncate: 500 }}
+                    <p>{{ latest_post.excerpt | strip_html | truncate: 500 }}</p>
                 </div>
                 
                 <a href="{{ latest_post.url }}" class="read-more">Read More →</a>
