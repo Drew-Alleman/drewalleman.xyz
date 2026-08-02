@@ -29,7 +29,7 @@ We are going to be looking to identify the windows class associated to the Avast
 ### Enumerating the Process Windows
 At a high level, this script is simply enumerating through all active windows on the system. For each window it finds, it grabs the internal window class and uses the window handle (HWND) to figure out which process created it. The crucial detail here is using the `PROCESS_QUERY_LIMITED_INFORMATION` flag when opening the process. This allows us to safely peek at the executable name without triggering "access denied" errors when scanning heavily protected processes.
 
-```c++
+```C++
 #include <windows.h>
 #include <iostream>
 #include <string>
