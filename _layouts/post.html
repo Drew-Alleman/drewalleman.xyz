@@ -22,16 +22,16 @@ extra_css: /assets/css/post.css
     </div>
   </header>
 
-  {% if page.image %}
-    <div class="post-image">
-      <img src="{{ page.image | relative_url }}" 
-           alt="{{ page.image_alt | default: page.title }}"
-           width="800"
-           height="400"
-           loading="lazy"
-           itemprop="image">
-    </div>
-  {% endif %}
+{% if page.image %}
+  <div class="post-image">
+    <img src="{{ page.image | relative_url }}" 
+         alt="{{ page.image_alt | default: page.title }}"
+         loading="lazy"
+          width="800"
+          height="400"
+         itemprop="image">1
+  </div>
+{% endif %}
 
   <div class="post-content" itemprop="articleBody">
     {{ content }}
