@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Detecting Avast CyberCapture Using Window Classes
-description: Abusing Chromium’s automatic download of non-renderable files by launching the browser completely off-screen with --window-position=-32000,-32000.
 date: 2026-08-02T10:00:00-07:00
 image: /assets/images/Pasted image 20260802102319.png
 categories:
