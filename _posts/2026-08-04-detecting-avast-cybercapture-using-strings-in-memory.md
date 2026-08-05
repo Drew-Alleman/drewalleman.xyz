@@ -36,7 +36,7 @@ SnxHk_UninstallHook
 ```
 
 ## Searching for Avast Artifacts in our Current Process
-Next, I created a C++ script to search the current process memory for `SnxHk_InstallHook`. While the target string appeared in both sandboxed and non-sandboxed executions, this is because the string literal was stored inside the executable, which accounts for the first result shown below:
+Next, I created a c++ script to search the current process memory for `SnxHk_InstallHook`. While the target string appeared in both sandboxed and non-sandboxed executions, this is because the string literal was stored inside the executable, which accounts for the first result shown below:
 ![Showcase](/assets/images/Pasted%20image%2020260804172432.png)
 
 A demo showcasing the code being executed in a process inside and outside the sandbox:
@@ -51,7 +51,7 @@ A screenshot showcasing the artifact not being detected:
 ![Showcase](/assets/images/Pasted%20image%2020260804185712.png)
 ## Code Explanation
 We begin by importing the necessary libraries and defining a small helper that builds the search string at runtime. Constructing the string dynamically prevents our own binary from containing a contiguous copy of `SnxHk_InstallHook`, which would otherwise produce a false positive during the scan.
-```C++
+```c++
 // detect-cybercapture-stealth.cpp
 // Build: cl /EHsc /O2 /std:c++17 detect-cybercapture-stealth.cpp /link psapi.lib
 // Exit code: 1 = CyberCapture present, 0 = clean
@@ -74,7 +74,7 @@ static void BuildInstall(char* o)
 
 Next we define a filter that decides whether a given address belongs to a region worth considering. In our testing the only reliable hits inside CyberCapture lived in `MEM_MAPPED` or `MEM_IMAGE` regions that were readable. All other region types are rejected.
 
-```C++
+```c++
 static bool IsGoodRegion(uintptr_t addr)
 {
     MEMORY_BASIC_INFORMATION mbi{};
@@ -104,7 +104,7 @@ The core of the detector is ScanForCyberCapture. It walks the entire address spa
 - Only committed, readable regions are examined.
 - As soon as a match is found inside a region that passes IsGoodRegion, the function returns true immediately (early exit).
 
-```C++
+```c++
 
 static bool ScanForCyberCapture(uintptr_t selfBase, size_t selfSize,
     uintptr_t exclStart, uintptr_t exclEnd,
@@ -169,7 +169,7 @@ static bool ScanForCyberCapture(uintptr_t selfBase, size_t selfSize,
 ```
 
 Finally we wire everything together in main. The needle is built at runtime, the ranges that must be ignored are calculated, and the result is reported with a simple message box.
-```C++
+```c++
 int main()
 {
     char needle[24]{};
